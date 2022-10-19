@@ -387,7 +387,12 @@ public class MidiProcessor
 
                     if(mIterator.hasNext())
                     {
-                        mNext = mIterator.next();
+                        try {
+                            mNext = mIterator.next();
+                        } catch (ConcurrentModificationException e){
+                            mIterator.remove();
+                            mNext = null;
+                        }
                     }
                     else
                     {
